@@ -11,3 +11,10 @@ The on board LED seemed to be on GPIO 0, the rely on GPIO 26 and the switch inpu
 
 # Conclusion
 So i hope this small post helps anyone who also wants to flash ESP Home firmware to an Shelly +1 and not wants to use the newly developed features and everything else that comes with the new Shelly. 
+
+
+#Pictures
+here are some picture from the inside
+![C764674C-C970-4BB3-9748-ABF0570AA20E](https://user-images.githubusercontent.com/38843794/136706329-1ad39d9c-e2a7-4bfd-9171-288307057226.jpeg)
+
+![33441095-2D46-48A6-99AB-039183E3F220](https://user-images.githubusercontent.com/38843794/136706336-7311be1e-f639-40d2-a7ae-7c01ac1ab3b0.jpeg)
