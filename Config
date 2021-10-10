@@ -1,0 +1,51 @@
+esphome:
+  name: shelly-plus1
+  platform: ESP32
+  board: esp32doit-devkit-v1
+  platformio_options:
+    platform: espressif32@3.0.0
+    platform_packages: tasmota/framework-arduinoespressif32 @ 3.10006.210420
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  password: "DEVKITV1"
+  
+ota:
+  password: "DEVKITV1"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_pass
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Shelly-Plus1 Fallback Hotspot"
+    password: "HO3zno3CSn0s"
+
+captive_portal:
+
+# the small led by the programming port
+status_led:
+  pin:
+    number: 0
+    inverted: true
+
+
+# SW Input
+binary_sensor:
+  - platform: gpio
+    id: Taster
+    pin:
+      number: 4
+    on_state:
+      then:
+        - switch.toggle: relay_1
+
+# Relay
+switch:
+  - platform: gpio
+    pin: 26
+    name: "Shelly Plus1"
+    id: relay_1
