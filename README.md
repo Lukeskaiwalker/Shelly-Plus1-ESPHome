@@ -7,7 +7,7 @@ So i tried to solder some dupont wires to the connector and startet serial readi
 There where discussing a similar problem with a single core esp 32 board. With this added to my config file i created a new .bin and started uploading, after rebooting the first sings of life started to appear. The Shelly started up successfully and connected to the wifi. Now i just needed to figure out where every thing was connected to. 
 
 # Pin Out
-The on board LED seemed to be on GPIO 0, the rely on GPIO 26 and the switch input on GPIO 4. The only thing i couldn’t figure out was the onboard button but i figured i wouldn’t need it anyways.
+The on board LED seemed to be on GPIO 0, the relay on GPIO 26 and the switch input on GPIO 4. After some time i also figured out the GPIO pin for the small button on back. It is GPIO 25. And maybe i now found also some aditional information on the esphome-devices.com site. 
 
 # Conclusion
 So i hope this small post helps anyone who also wants to flash ESP Home firmware to an Shelly +1 and not wants to use the newly developed features and everything else that comes with the new Shelly. 
