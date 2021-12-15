@@ -1,10 +1,14 @@
 esphome:
   name: shelly-plus1
-  platform: ESP32
-  board: esp32doit-devkit-v1
-  platformio_options:
-    platform: espressif32@3.0.0
-    platform_packages: tasmota/framework-arduinoespressif32 @ 3.10006.210420
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+    sdkconfig_options:
+      CONFIG_FREERTOS_UNICORE: 
+      
 # Enable logging
 logger:
 
@@ -32,11 +36,48 @@ status_led:
     number: 0
     inverted: true
 
+sensor:
+  - platform: wifi_signal
+    name: "${friendly_name} WiFi Signal"
+    update_interval: 60s
+    
+  # NTC Temperature Sensor, this part does not work correctly so use by your own risk (values are not accurate).
+  - platform: ntc 
+    sensor: ${name}_resistance_sensor
+    name: "${friendly_name} Temperature"
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    icon: mdi:thermometer
+    calibration:
+      b_constant: 3350
+      reference_resistance: 10kOhm
+      reference_temperature: 298.15K
+    on_value_range:
+      above: 60
+      then: # Security shutdown when it's overheating
+        - switch.turn_off: relay_1
+  - platform: resistance
+    id: ${name}_resistance_sensor
+    sensor: ${name}_source_sensor
+    configuration: DOWNSTREAM
+    resistor: 5.5kOhm
+  - platform: adc
+    id: ${name}_source_sensor
+    pin: 32
+    update_interval: 10s
+
 
 # SW Input
 binary_sensor:
+  - platform: gpio    #the small button on the back of the shelly.
+    id: reset_sw
+    pin: 
+      number: 25
+      mode: INPUT_PULLUP
+      inverted: true
+  
   - platform: gpio
-    id: Taster
+    id: sw_1
     pin:
       number: 4
     on_state:
